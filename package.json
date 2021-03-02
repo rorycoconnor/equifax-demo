@@ -2,8 +2,6 @@
   "name": "equifax-react-demo",
   "version": "0.1.0",
   "private": true,
-  // Add proxy information back in for development
-  // "proxy": "http://localhost:8080",
   "dependencies": {
     "@box/cldr-data": "^34.6.0",
     "@hapi/address": "^4.1.0",
