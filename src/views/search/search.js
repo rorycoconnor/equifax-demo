@@ -4,6 +4,7 @@ import QueryForm from '../../components/QueryForm/QueryForm'
 import QueryResults from '../../components/QueryResults/QueryResults'
 import styles from './search.module.css'
 import axios from 'axios';
+import {Helmet} from 'react-helmet';
 
 
 const Index = () => {
@@ -27,6 +28,9 @@ const Index = () => {
     
     return (
         <div className={styles.Container}>
+            <Helmet>
+                <title>Equifax | Document Search</title>
+            </Helmet>
             <TopNav />
             <div className={styles.Header}>
                 <h1>Document Search</h1>

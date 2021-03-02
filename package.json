@@ -2,7 +2,8 @@
   "name": "equifax-react-demo",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  // Add proxy information back in for development
+  // "proxy": "http://localhost:8080",
   "dependencies": {
     "@box/cldr-data": "^34.6.0",
     "@hapi/address": "^4.1.0",
@@ -32,6 +33,7 @@
     "react-beautiful-dnd": "^9.0.2",
     "react-dom": "^16.14.0",
     "react-draggable": "^3.3.2",
+    "react-helmet": "^6.1.0",
     "react-immutable-proptypes": "^2.2.0",
     "react-intl": "^5.13.2",
     "react-measure": "^2.5.2",

@@ -2,7 +2,8 @@ import styles from './preview.module.css';
 import TopNav from '../../components/TopNav/TopNav';
 import Preview from '../../components/PreviewComponent/Preview'
 import {useLocation} from 'react-router';
-import {useHistory} from 'react-router'
+import {useHistory} from 'react-router';
+import {Helmet} from 'react-helmet'
 
 const Index = (props) => {
     const location = useLocation()
@@ -11,6 +12,9 @@ const Index = (props) => {
     console.log('LOC', location, history)
     return (
         <div className={styles.Container}>
+            <Helmet>
+                <title>Equifax | Document Preview</title>
+            </Helmet>
             <TopNav />
             <div className={styles.Header}>
                 <h1>Document Viewer</h1>
