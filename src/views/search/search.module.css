@@ -1,0 +1,13 @@
+.Header {
+    height: 100px;
+    margin: 0px;
+}
+
+.Container h1 {
+    font-family: 'Lato', sans-serif;
+    text-align: left;
+    width: 60%;
+    margin: 0px auto;
+    line-height: 100px;
+
+}

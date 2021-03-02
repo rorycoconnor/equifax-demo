@@ -1,10 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import {ContentPreview} from "box-ui-elements";
+import {IntlProvider} from "react-intl";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Search from './views/search/search'
+import Preview from './views/preview/preview'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <Router>
+        <Switch>
+          <Route path="/search">
+            <Search />
+          </Route>
+          <Route path="/preview">
+            <Preview />
+          </Route>
+        </Switch>
+      </Router>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -17,7 +37,11 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+
+      {/* <IntlProvider locale="en">
+			  <ContentPreview token={'KKSaSP6ThsarjRgD0JYDbT4itDuziqJ6'} fileId={'780146277166'} height={"100%"} width={"100%"}/>
+		  </IntlProvider> */}
     </div>
   );
 }

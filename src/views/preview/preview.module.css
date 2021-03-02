@@ -1,0 +1,19 @@
+.Header {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin: 0px auto;
+    justify-content: space-between;
+    height: 100px;
+    /* background-color: green; */
+}
+
+.Header h1 {
+    font-family: 'Lato', sans-serif;
+    line-height: 100px;
+    margin: 0px
+}
+
+.Header button {
+    margin: 27.5px 0px 27.5px 5px
+}

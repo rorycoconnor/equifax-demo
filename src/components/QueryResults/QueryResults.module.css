@@ -1,0 +1,35 @@
+.Container {
+    width: 60%;
+    margin: auto;
+    /* background-color: gray; */
+}
+
+.Container h1 {
+    font-family: 'Lato', sans-serif;
+    text-align: left;
+    margin: 0;
+}
+
+.Container table {
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 60px;
+}
+
+.Container th {
+    text-align: left;
+    border-bottom: 1px solid black;
+}
+
+.Container td {
+    height: 75px;
+}
+
+.Container tr:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.ImageIcon {
+    width: 75px;
+    align-items: left;
+}

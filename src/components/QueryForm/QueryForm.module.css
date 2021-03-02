@@ -1,0 +1,68 @@
+.Container {
+    width: 60%;
+    margin: 0px auto;
+    height: 400px;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+}
+
+.Header {
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    margin-left: 16px
+}
+
+.Form {
+    padding: 16px;
+    width: 90%;
+    margin: auto;
+    /* background-color: green; */
+    /* background-color: red; */
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* background-color: red; */
+}
+
+.Column {
+    height: 200px;
+    width: 50%;
+    text-align: left;
+}
+
+.Column label {
+    /* margin: 16px; */
+    /* width: 400px; */
+    /* background-color: orange; */
+    line-height: 31px;
+    margin: 0px
+    
+}
+
+.Input {
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    /* background-color: red; */
+    margin: 16px 8px;
+    width: 90%;
+    justify-content: space-between;
+    line-height: 25px;
+}
+
+.TextInput {
+    height: 25px
+}
+
+.Footer {
+    width: 100%;
+    margin-top: 32px;
+    /* background-color: orange; */
+}
+
+.Footer button {
+    margin-left: 75%;
+}
