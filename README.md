@@ -8,6 +8,8 @@ This repository contains the demo portal for the Equifax opportunity.
 2. Install packages by running **npm install**.
 3. Run **npm start** to start the development server.
 4. Navigate to **http://localhost:3000/search** to view the search form. 
+5. In package.json, add in the line **"proxy": "http://localhost:8080"**
+6. To start the backend service, open another terminal window and enter **node server/server.js**
 
 **NOTE:** To actually run a search, the values in **server/controllers/searchController.js** must be updated with the ClientID, ClientSecret, and a Developer Token from https://equifax-demo.app.box.com/developers/console/app/1470920/configuration. To view a preview, add the same Developer Token to the file **src/components/PreviewComponents/Preview.js**
 
