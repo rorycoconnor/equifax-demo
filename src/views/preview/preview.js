@@ -32,7 +32,7 @@ const Index = (props) => {
     const openWindow = () => {
 
         
-        window.open(`/imageAccess.html?token=${process.env.TOKEN}&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
+        window.open(`/imageAccess.html?token=${token}&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
         //window.open(`/imageAccess.html?token=RrsSDpFVEvPd6HXShQPot9AvCq2giqEP&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
     }
 
