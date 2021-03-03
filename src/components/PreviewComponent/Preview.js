@@ -7,7 +7,7 @@ const Preview = (props) => {
     return (
         <div className={styles.Container}>
             <IntlProvider locale="en">
-			  <ContentPreview hasHeader token={'DEVELOPER_TOKEN'} fileId={props.id}/>
+			  <ContentPreview hasHeader token={'clvSMxpKXUjZrNZZJhiwzaiwauVVwqgq'} fileId={props.id}/>
 		  </IntlProvider>
         </div>
     )

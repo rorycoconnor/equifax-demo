@@ -1,0 +1,57 @@
+.Container {
+    width: 100%;
+    height: 100vh;
+    text-align: left;
+}
+
+.Header {
+    margin: 10px;
+    height: 75px;
+    
+}
+
+.LoginForm {
+    height: 400px;
+    width: 400px;
+    margin: 64px auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+
+}
+
+.LoginForm h4 {
+    font-family: 'Lato', sans-serif;
+    width: 80%;
+    margin: 36px auto;
+    font-size: 20px;
+    text-justify: center;
+    text-align: center;
+}
+
+.InputSection {
+    display: inline-block;
+    width: 80%;
+    margin: 12px 10%
+}
+
+.InputSection label {
+    display: block;
+    margin-bottom: 4px
+}
+
+.InputSection input {
+    width: 100%;
+    height: 45px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.Footer {
+    width: 100%;
+    /* background-color: black; */
+    height: 45px;
+    text-align: center;
+    margin-top: 12px;
+}

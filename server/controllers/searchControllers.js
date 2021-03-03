@@ -1,11 +1,11 @@
 const BoxSDK = require('box-node-sdk');
 
 const sdk = new BoxSDK({
-    clientID: 'CLIENT_ID',
-    clientSecret: 'CLIENT_SECRET'
+    clientID: 'rywu0telmazjlova8bz8smwiooy18bpk',
+    clientSecret: 'd0rmSPWvvmITdSIhyqjOgbZZjK8p3VA8'
 })
 
-const client = sdk.getBasicClient('DEVELOPER_TOKEN')
+const client = sdk.getBasicClient('clvSMxpKXUjZrNZZJhiwzaiwauVVwqgq')
 
 const runMetadataQuery = async (values) => {
     try {

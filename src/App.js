@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Search from './views/search/search'
 import Preview from './views/preview/preview'
+import Login from './views/login/login'
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/preview">
             <Preview />
+          </Route>
+          <Route path="/">
+            <Login />
           </Route>
         </Switch>
       </Router>
