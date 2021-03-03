@@ -10,13 +10,14 @@ const Index = (props) => {
     const history = useHistory();
     let fileID = location.state.id;
     console.log('LOC', location, history);
-    const token = process.env.TOKEN || 'cHq2Zb10hqSgHBRmZMU40ouF6j39NBSk'
+    const token = process.env.TOKEN
     console.log('TOKEN', token)
+    console.log(process.env.TOKEN)
 
     const openWindow = () => {
 
         
-        window.open(`/imageAccess.html?token=${token}&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
+        window.open(`/imageAccess.html?token=${process.env.TOKEN}&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
         //window.open(`/imageAccess.html?token=RrsSDpFVEvPd6HXShQPot9AvCq2giqEP&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
     }
 
