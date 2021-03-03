@@ -11,6 +11,7 @@ const Index = () => {
     
     const [fileResults, updateFileResults] = React.useState([]);
     const [showResults, updateShowResults] = React.useState(false)
+    const [token, updateToken] = React.useState('')
 
     const fetchDocuments = async (values) => {
         console.log(';v',values)
@@ -21,6 +22,7 @@ const Index = () => {
             data: values
         })
         console.log('ITEMS', items)
+        updateToken(items.data.token)
         updateFileResults(items.data.files || [])
         updateShowResults(true)
     }
@@ -37,7 +39,7 @@ const Index = () => {
             </div>
             
             <QueryForm fetch={fetchDocuments}/>
-            {showResults ? <QueryResults files={fileResults} />: null}
+            {showResults ? <QueryResults files={fileResults} token={token}/>: null}
         </div>
     )
 }

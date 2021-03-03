@@ -32,7 +32,8 @@ const QueryResults = (props) => {
         history.push({
             pathname: '/preview',
             state: {
-                id: f.id
+                id: f.id,
+                token: props.token
             }
         })
         // await getSharedLinkValue(f.id)

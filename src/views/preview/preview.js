@@ -3,16 +3,31 @@ import TopNav from '../../components/TopNav/TopNav';
 import Preview from '../../components/PreviewComponent/Preview'
 import {useLocation} from 'react-router';
 import {useHistory} from 'react-router';
-import {Helmet} from 'react-helmet'
+import {Helmet} from 'react-helmet';
+import axios from 'axios';
+import React from 'react'
 
 const Index = (props) => {
+    // const [token, updateToken] = React.useState('')
     const location = useLocation();
     const history = useHistory();
     let fileID = location.state.id;
-    console.log('LOC', location, history);
-    const token = process.env.TOKEN
-    console.log('TOKEN', token)
-    console.log(process.env.TOKEN)
+    let token = location.state.token;
+
+
+    // const getToken = async () => {
+    //     const response = await axios.get('https://equifax-demo-api.herokuapp.com/api/token')
+    //     console.log('ay', response)
+    //     updateToken(response.data)
+    //     console.log(token)
+
+    // }
+
+
+    // React.useEffect(() => {
+    //     getToken()
+
+    // }, [])
 
     const openWindow = () => {
 
