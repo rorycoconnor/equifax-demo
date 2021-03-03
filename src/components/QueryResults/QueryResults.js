@@ -8,17 +8,24 @@ const QueryResults = (props) => {
     const history = useHistory()
     // const router = useRouter()
     
-    const tableRows = props.files.map(f => {
-        console.log(f)
-        return (
-            <tr onClick={() => fileClickHandler(f)} value={f.id}>
-                <td className={styles.ImageIcon}><img src='/pdf.png' height="30" width="30"></img></td>
-                <td >
-                    {f.name}
-                </td>
-            </tr>
-        )
-    })
+    let tableRows = [];
+    
+    if (props.files.length > 0) {
+        tableRows = props.files.map(f => {
+            console.log(f)
+            return (
+                <tr onClick={() => fileClickHandler(f)} value={f.id}>
+                    <td className={styles.ImageIcon}><img src='/pdf.png' height="30" width="30"></img></td>
+                    <td >
+                        {f.name}
+                    </td>
+                </tr>
+            )
+            
+        })
+    }
+    
+    
 
     const fileClickHandler = async (f) => {
         console.log(f.id)

@@ -21,7 +21,7 @@ const Index = () => {
             data: values
         })
         console.log('ITEMS', items)
-        updateFileResults(items.data.files)
+        updateFileResults(items.data.files || [])
         updateShowResults(true)
     }
 
