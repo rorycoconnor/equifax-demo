@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Equifax preview with ImageTrust</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="imageAccess.css" />
+  <script async src="https://cloud.imagetrust.com/client-html-209/ith.js"></script>
+  <script src="./utils.js"></script>
+
+  <style type="text/css">
+    .controls-container {
+      display: flex;
+      /*justify-content: space-between;*/
+      color: #fff;
+      /*justify-content: space-around;*/
+      /*justify-content: flex-end;*/
+      justify-content: flex-start;
+    }
+
+    .controls-save {
+      display: flex;
+    }
+
+    .ith-label {
+      color: black;
+      font-family: rubik;
+      font-size: 10pt;
+      font-weight: 500;
+    }
+
+    .ith-btn {
+      background-color: white;
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      padding: 0.5em;
+      font-family: rubik;
+      font-size: 10pt;
+      font-weight: 500;
+    }
+
+    .ith-btn:active {
+      border: 1px inset #444;
+    }
+
+    .ith-btn:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  </style>
+
+
+  <script>
+    var getFileInfoUrl = "https://api.box.com/2.0/files/{file_id}";
+    var boxUpdateDocUrl = "https://upload.box.com/api/2.0/files/{file_id}/content";
+    var fileId = null;
+    var accessToken = null;
+    var dispatch = undefined;
+    var ithConfig = {
+      srvBaseUrl: 'https://cloud.imagetrust.com/service-html-209/rest/v1.0/',
+      ThemeConfiguration: {},
+      LogToServer: false,
+      UseCCT: true,
+      SupportsSearch: true,
+      RequireCCTOnStartup: false,
+      InitialCCTDetectDelayMs: 3000,
+      PromptForCCTDownload: false,
+      MaxConcurrentServerOps: 3
+    };
+
+    var job = {
+      name: "Default Job",
+      description: "Job Description",
+      useFolderLevel: false,
+      allowAnnotations: true,
+      supportEDocs: false,
+      enableIndexing: false,
+      pdfsAsImages: true,
+      //batchNaming: 'BATCH $CurrentDate',
+      ocrOnScan: false,
+      decryptionAllowed: true
+    }
+
+    window.addEventListener("load", function () {
+      var container = document.getElementById('ithContainer');
+      ith.createInstance(container, ithConfig).then(function (instance) {
+        dispatch = instance;
+        dispatch.setLevelName(dispatch.LevelName.Document, "$docname");
+
+        console.log("TRX-HTML instance loaded");
+        console.log("token = " + getQueryVariable("token"));
+        console.log("fileID = " + getQueryVariable("fileID"));
+        fileId = getQueryVariable("fileID");
+        accessToken = getQueryVariable("token");
+
+        dispatch.setJob(job).then(function () {
+          dispatch.newBatch().then(function () {
+            loadOpenedFile().then(function () {
+              var btnUploadToBox = document.getElementById('btnUploadToBox');
+              var btnClose = document.getElementById('btnClose');
+              btnUploadToBox.style.visibility = "visible";
+              btnClose.style.visibility = "visible";
+            });
+          });
+        });
+      });
+    });
+
+    function setupXhrToken(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
+    }
+
+    function uploadNewVersion(fileId, blob, setupXhrCB, onSuccessCB, onErrorCB) {
+      function setupXhr(xhr) {
+        setupXhrCB(xhr);
+        //xhr.setRequestHeader("If-Match", originalObjectInfo.etag);
+      }
+
+      var formData = new FormData();
+      formData.append('file', blob);
+      return doXhr("post", boxUpdateDocUrl.replace("{file_id}", fileId), formData, setupXhr, onSuccessCB, onErrorCB);
+    }
+
+    function cancelDocumentUploads(uploadRequests) {
+      uploadRequests.forEach(function (request) {
+        if (request.readyState != request.DONE) {
+          request.abort();
+        }
+      });
+    }
+
+    function loadOpenedFile() {
+      var progress = dispatch.indeterminateProgress("Loading file...", "Box");
+      return new Promise(function (resolve, reject) {
+        dispatch.deleteNodes(dispatch.currentBatch.documents).then(function () {
+          downloadFileUrl(fileId).then(function (url) {
+            dispatch.importDocument(dispatch.currentBatch, url).then(function () {
+              updateDocName(fileId, dispatch.currentBatch.documents[0]);
+              progress.closeFn();
+              resolve();
+            });
+          }).catch(function (error) {
+            progress.closeFn();
+            var msg = "Error occured during loading of the file";
+            logRed(msg);
+            dispatch.alert(msg, "Box");
+            reject();
+          });
+        });
+      });
+    }
+
+    function downloadFileUrl(fileId) {
+      return new Promise(function (resolve, reject) {
+        doXhr("GET", getFileInfoUrl.replace("{file_id}", fileId) + "?fields=download_url", null, setupXhrToken, function (xhr) {
+          try {
+            var download_url = JSON.parse(xhr.response).download_url;
+          } catch (e) {
+            throw "You do not have permission to download file with id " + fileId;
+          }
+          resolve(download_url);
+        }, reject);
+      });
+    }
+
+    function updateDocName(docName, doc) {
+      var selectedDoc;
+      if (def(doc))
+        selectedDoc = doc;
+      else
+        selectedDoc = getSelectedDocument();
+      if (undef(selectedDoc)) return;
+      selectedDoc.properties.docname = docName;
+    }
+
+    function getSelectedDocument() {
+      var selectedNodes = ith.dispatch.getSelectedNodes();
+      if (selectedNodes.length < 1) return undefined;
+
+      var firstNode = selectedNodes[0];
+      if (firstNode.levelName === "Document") return firstNode;
+      else if (firstNode.levelName === "Page") return firstNode.parent;
+      else return firstNode.documents[0];
+    }
+
+    function uploadToBox() {
+      var docindex = 0,
+        docsdone = 0,
+        metadataUploadIndex = 0,
+        totalDocs = dispatch.currentBatch.documentCount,
+        uploadRequests = [],
+        failedDocUploads = [],
+        documentUploadedAmounts = 0, documentTotalUploadSize = 0,
+        progressModal = dispatch.determinateProgress("Saving document(s)", "Saving", function () {
+          cancelDocumentUploads(uploadRequests);
+        }),
+        progressMsg = "";
+
+      function checkUploadCompleted() { // TODO when we port to TypeScript, use Promise.all here instead of interval and counter checks
+        console.log("uploadToBox -> docsdone: ", docsdone);
+        console.log("uploadToBox -> totalDocs: ", totalDocs);
+        if (docsdone >= totalDocs) {
+          var interval = setInterval(function () {
+            clearInterval(interval);
+            dispatch.alert("Document uploaded to Box with success!")
+              .then(function () {
+                progressModal.closeFn();
+                window.opener.location.reload(true);
+                window.close();
+              });
+          }, 50);
+        }
+      }
+
+      var doc = dispatch.currentBatch.documents[0];
+      console.log("uploadToBox -> doc: ", doc);
+      var responsePromise = dispatch.downloadAsMultiDoc(doc, "pdf",
+        function (xhr) {
+          xhr.responseType = 'blob';
+        });
+
+      responsePromise.then((function (docindex, doc) {
+        return function (blob) {
+          logGreen("Doc " + doc.uuid + " was successfully retrieved by the server");
+          documentTotalUploadSize += blob.size; // TODO Add check for over 50mb
+          // Add the file to the form along with its name
+          var docName = doc.properties.docName;
+
+          doc.uploadedAmount = 0;
+          var onProgress = function (e) {
+            if (e.lengthComputable) {
+              documentUploadedAmounts -= doc.uploadedAmount; // remove previous ratio from total
+              documentUploadedAmounts += doc.uploadedAmount = e.loaded;
+
+              var totalPercentage = Math.floor((documentUploadedAmounts / documentTotalUploadSize) * 100);
+
+              progressModal.updateProgress(totalPercentage, "Saving document(s) " + (docsdone + 1) + " of " + totalDocs + ". (total " + totalPercentage + "%) " + progressMsg);
+            } else {
+              // Unable to compute progress information since the total size is unknown
+              console.log("uploading: unknown");
+            }
+          };
+
+          var setupXhrCB = function (xhr) {
+            setupXhrToken(xhr);
+            xhr.upload.addEventListener('progress', onProgress);
+            xhr.doc = doc;
+          };
+
+          var onSuccessCB = function (xhr) {
+            console.log("Document saved: " + docindex);
+            docsdone++;
+            var totalPercentage = Math.floor((documentUploadedAmounts / documentTotalUploadSize) * 100);
+            progressModal.updateProgress(totalPercentage, "Saved document(s) " + docsdone + " of " + totalDocs + ". (total " + totalPercentage + "%) " + progressMsg);
+
+            checkUploadCompleted();
+          };
+
+          var onErrorCB = function (xhr) {
+            progressMsg = "";
+            if (xhr.type === "abort") {
+              logYellow("document upload aborted: " + xhr.doc.uuid);
+              failedDocUploads.push({ uuid: xhr.doc.uuid, reason: "aborted" });
+              progressMsg = "\n ** Aborted " + failedDocUploads.length + " document(s)";
+            } else if (xhr.status == 409) { // conflict i.e: doc name already exists
+              logYellow("document " + docName + " failed to upload because one already exists");
+              failedDocUploads.push({ uuid: xhr.doc.uuid, reason: docName + " already exists" });
+              progressMsg += "\n ** Failed uploading " + failedDocUploads.length + " document(s)";
+            } else {
+              logRed("document upload failed: " + xhr.doc.uuid + " reason: " + xhr.statusText);
+              failedDocUploads.push({ uuid: xhr.doc.uuid, reason: xhr.statusText });
+              progressMsg += "\n ** Failed uploading " + failedDocUploads.length + " document(s)";
+            }
+            totalDocs--;
+
+            var totalPercentage = Math.floor((documentUploadedAmounts / documentTotalUploadSize) * 100);
+            progressModal.updateProgress(totalPercentage, "Saved document(s) " + docsdone + " of " + totalDocs + ". (total " + totalPercentage + "%) " + progressMsg);
+            checkUploadCompleted();
+          };
+
+          var uploadRequest = uploadNewVersion(fileId, blob, setupXhrCB, onSuccessCB, onErrorCB);
+          uploadRequests.push(uploadRequest);
+        }
+      })(docindex, doc)).catch(function (error) {
+        dispatch.alert("Failed to send the document " + doc.properties.docname + " to the webserver with error: " + error, "Box");
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+    <form>
+      <div class="controls-container">
+        <div class="controls-save">
+          <input style="visibility: hidden" type="button" id="btnUploadToBox" class="ith-btn"
+            onclick="javascript:uploadToBox();" value="Upload To Box" />&nbsp;&nbsp;
+          <input style="visibility: hidden" type="button" id="btnClose" class="ith-btn"
+            onclick="javascript:window.close();" value="Close" />&nbsp;&nbsp;
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="ithParent" style="position:relative; height: 750px;">
+    <div id="ithContainer" style="height: 100%; position:relative;"></div>
+  </div>
+
+</body>
+
+</html>

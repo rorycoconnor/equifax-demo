@@ -1,0 +1,114 @@
+/**********************************************
+  HOST DEMO APP
+**********************************************/
+
+html,body{
+  height:100%;
+  margin: 0;
+  overflow-y: hidden;
+}
+
+div#hostappContainer {
+  font-family: tahoma;
+  font-size:12px;
+  height: 100%;
+}
+div#hostappHeader {
+  height: 5%;
+}
+div#hostappContent {
+  height: 90%;
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  display: -ms-flexbox;
+  box-sizing: border-box;
+}
+div.sideContent {
+  height: 100%;
+  flex: 0 0 5%;
+  -ms-flex: 0 0 5%;
+}
+div#hostappTCHTML,
+div#hostappTCHTML1,
+div#hostappTCHTML2 {
+  display: inline-block;
+  /*border: 1px solid #909090;*/
+  vertical-align: top;
+  box-sizing: border-box;
+  height: 100%;
+  flex: 1 0 90%;
+  -ms-flex: 1 0 90%;
+  box-shadow: 0px 0px 9px #777;
+  z-index: 1;
+}
+
+div#hostappTCHTML1 {
+  flex: 1 0 40%;
+  -ms-flex: 1 0 40%;
+  margin: 0 .5em 0 0;
+}
+
+div#hostappTCHTML2 {
+  flex: 1 0 40%;
+  -ms-flex: 1 0 40%;
+  margin: 0 0 0 .5em;
+}
+
+
+div#hostappFooter {
+  height: 5%;
+}
+
+div#hostappHeaderContent {
+  padding: 1em;
+  color: black;
+}
+div#hostappHeader:before {
+  /*content: "HOSTING APPLICATION HEADER";*/
+  display: block;
+  position: absolute;
+  padding: 1em;
+}
+
+div#hostappFooter:before {
+  content: "HOSTING APPLICATION FOOTER";
+  display: block;
+  position: absolute;
+  /* padding: 1em; */
+  font-size: 20pt;
+  overflow: visible;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+
+div.sideContent:before {
+  content: "HOSTING APPLICATION SIDE CONTENT";
+  display: block;
+  margin: auto;
+  text-orientation: sideways;
+  writing-mode: tb-rl;
+  /* width: 1em; */
+  font-size: 20pt;
+  overflow: visible;
+  text-align: center;
+  height: 100%;
+}
+
+div#hostappHeader,
+div#hostappFooter,
+div.sideContent {
+  /*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQYV2NkQAI7duz4zwjjgzgeHh6MYAEYB8RmROaABADpDQ8sNhe+PgAAAABJRU5ErkJggg==);*/
+  color: #ababab;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#hostappLoading{
+  margin:20px;
+  padding:20px;
+  text-align: center;
+  font-size: 13px;
+  align-content: center;
+  color: gray;
+}
