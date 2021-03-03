@@ -6,7 +6,7 @@ import {useRouter} from 'next/router' */
 const QueryResults = (props) => {
     
     const history = useHistory()
-    // const router = useRouter()
+  
     
     let tableRows = [];
     
