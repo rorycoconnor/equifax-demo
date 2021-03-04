@@ -18,7 +18,7 @@ const Index = () => {
         updateShowResults(false)
        const items = await axios({
             method: 'POST',
-            url: 'https://equifax-demo-api.herokuapp.com/api/search',
+            url: 'https://equifax-demo-api.herokuapp.com/api/search/',
             data: values
         })
         console.log('ITEMS', items)

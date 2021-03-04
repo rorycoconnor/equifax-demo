@@ -11,8 +11,9 @@ const Index = (props) => {
     // const [token, updateToken] = React.useState('')
     const location = useLocation();
     const history = useHistory();
-    let fileID = location.state.id;
-    let token = location.state.token;
+    let fileID = location.state.id || '0';
+    let token = location.state.token || 'U7CsGVuKsfHllqMrPhv5Ychgq3ZesuWC';
+    console.log('TOKEN', token)
 
 
     // const getToken = async () => {
@@ -36,6 +37,10 @@ const Index = (props) => {
         //window.open(`/imageAccess.html?token=RrsSDpFVEvPd6HXShQPot9AvCq2giqEP&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
     }
 
+    const openFileRequest = () => {
+        window.open('https://equifax-demo.app.box.com/f/1441b725e7094ed5908302a773635562')
+    }
+
     return (
         <div className={styles.Container}>
             <Helmet>
@@ -45,6 +50,7 @@ const Index = (props) => {
             <div className={styles.Header}>
                 <h1>Document Viewer</h1>
                 <div>
+                    <button onClick={() => openFileRequest()}>UPLOAD</button>
                     <button>SIGN</button>
                     <button onClick={() => openWindow()}>ANNOTATE</button>
                 </div>

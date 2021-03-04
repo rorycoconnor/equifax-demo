@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './login.module.css'
 import {useHistory} from 'react-router';
+import {Helmet} from 'react-helmet'
 
 const Login = () => {
 
@@ -11,6 +12,9 @@ const Login = () => {
     }
     return (
         <div className={styles.Container}>
+            <Helmet>
+                <title>Equifax | Login</title>
+            </Helmet>
             <div className={styles.Header}>
                 <img src={'./equifax_red.png'} alt="" height="100%"/>
             </div>
