@@ -12,7 +12,7 @@ const Index = (props) => {
     const location = useLocation();
     const history = useHistory();
     let fileID = location.state.id || '0';
-    let token = location.state.token || 'U7CsGVuKsfHllqMrPhv5Ychgq3ZesuWC';
+    let token = location.state.token || 'BwYGD5tv8VA1di9YGSKjXVaoTYdR2U9b';
     console.log('TOKEN', token)
 
 

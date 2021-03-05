@@ -1,6 +1,6 @@
 .Container { 
     width: 60%;
     height: 80vh;
-    margin: 0px auto;
+    margin: 0px auto 32px auto;
     border: 1px solid black
 }
