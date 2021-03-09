@@ -38,13 +38,13 @@ const Index = (props) => {
     }
 
     const openFileRequest = () => {
-        window.open('https://equifax-demo.app.box.com/f/1441b725e7094ed5908302a773635562')
+        window.open('https://query-demo.app.box.com/f/1441b725e7094ed5908302a773635562')
     }
 
     return (
         <div className={styles.Container}>
             <Helmet>
-                <title>Equifax | Document Preview</title>
+                <title>Document Preview</title>
             </Helmet>
             <TopNav />
             <div className={styles.Header}>

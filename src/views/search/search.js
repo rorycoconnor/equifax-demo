@@ -31,7 +31,7 @@ const Index = () => {
     return (
         <div className={styles.Container}>
             <Helmet>
-                <title>Equifax | Document Search</title>
+                <title>Document Search</title>
             </Helmet>
             <TopNav />
             <div className={styles.Header}>
