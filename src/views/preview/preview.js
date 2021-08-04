@@ -6,6 +6,7 @@ import {useHistory} from 'react-router';
 import {Helmet} from 'react-helmet';
 import axios from 'axios';
 import React from 'react'
+import ImageTrust from './ImageTrust.png'
 
 const Index = (props) => {
     // const [token, updateToken] = React.useState('')
@@ -34,7 +35,7 @@ const Index = (props) => {
 
         
         window.open(`/imageAccess.html?token=${token}&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
-        //window.open(`/imageAccess.html?token=RrsSDpFVEvPd6HXShQPot9AvCq2giqEP&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
+        window.open(`/imageAccess.html?token=RrsSDpFVEvPd6HXShQPot9AvCq2giqEP&fileID=${fileID}`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1200,height=800");
     }
 
     const openFileRequest = () => {
@@ -50,9 +51,13 @@ const Index = (props) => {
             <div className={styles.Header}>
                 <h1>Document Viewer</h1>
                 <div>
-                    <button onClick={() => openFileRequest()}>UPLOAD</button>
-                    <button>SIGN</button>
-                    <button onClick={() => openWindow()}>ANNOTATE</button>
+                    {/* <button onClick={() => openFileRequest()}>
+                        <p>UPLOAD</p>
+                    </button> */}
+                    {/* <button>SIGN</button> */}
+                    <button onClick={() => openWindow()} className={styles.ImageTrustButton}>
+                        <img src={ImageTrust} className={styles.ITLogo} alt="ImageTrust Logo"/>
+                    </button>
                 </div>
             </div>
             <Preview id={fileID} token={token}/>

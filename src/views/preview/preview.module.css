@@ -13,7 +13,28 @@
     line-height: 100px;
     margin: 0px
 }
+.ImageTrustButton {
+    background-color: white;
+    border: 1px solid red;
+    /* margin: 100px */
+}
 
 .Header button {
     margin: 27.5px 0px 27.5px 5px
 }
+
+.ITLogo {
+    width: 100%;
+    height: 40px
+    /* margin: 27.5px */
+}
+
+.Header p {
+    margin: 0
+}
+
+.Header img {
+    margin: 0
+}
+
+
