@@ -35,7 +35,7 @@ const Index = () => {
             </Helmet>
             <TopNav />
             <div className={styles.Header}>
-                <h1>Document Search</h1>
+                <h1>Asset Search</h1>
             </div>
             
             <QueryForm fetch={fetchDocuments}/>

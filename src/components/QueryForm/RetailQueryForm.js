@@ -15,6 +15,10 @@ const QueryForm = (props) => {
     const genderOptions = ["Men's", "Women's", 'Youth', 'Other'].map(o => {
         return <option value={o}>{o}</option>
     })
+
+    const styleOptions = ['Mock Neck Figure Fit', 'A-Line Skirt', 'Shell Top', 'V-Neck MidRiff Top'].map(o => {
+        return <option value={o}>{o}</option>
+    })
     
     
     
@@ -77,7 +81,10 @@ const QueryForm = (props) => {
                                         </div>
                                         <div className={styles.Input}>
                                             <label>STYLE</label>
-                                            <Field name="style" className={styles.TextInput}/>
+                                            <Field name="style" className={styles.TextInput} as="select">
+                                                <option value=''> ---- SELECT ----</option>
+                                                {styleOptions}
+                                            </Field>
                                         </div>
                                         
                                     </div>
