@@ -11,21 +11,27 @@ import {
 import Search from './views/search/search'
 import Preview from './views/preview/preview'
 import Login from './views/login/login'
+import RetailSearch from './views/retail/search'
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/retail">
+            <RetailSearch/>
+          </Route>
           <Route path="/search">
             <Search />
           </Route>
           <Route path="/preview">
             <Preview />
           </Route>
+          
           <Route path="/">
             <Login />
           </Route>
+          
         </Switch>
       </Router>
       {/* <header className="App-header">

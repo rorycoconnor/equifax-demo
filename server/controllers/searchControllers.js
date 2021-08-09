@@ -25,6 +25,14 @@ const runMetadataQuery = async (values) => {
 
 }
 
+const runRetailMetadataQuery = async (values) => {
+    try {
+        const query = constructRetailQuery(values)
+    } catch (e) {
+
+    }
+}
+
 const constructQuery = (values) => {
     let options = {
         "query": "state = :state",
@@ -35,6 +43,11 @@ const constructQuery = (values) => {
     return options;  
 }
 
+const constructRetailQuery = (values) => {
+    console.log(values)
+}
+
 module.exports = {
+    runMetadataQuery, 
     runMetadataQuery
 }

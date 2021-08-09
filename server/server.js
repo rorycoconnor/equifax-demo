@@ -9,6 +9,10 @@ app.get('/api/search', (req, res) => {
     res.send('HEYO')
 }) 
 
+app.post('/api/retailsearch', async (req, res) => {
+    let items = await searchController.runRetailMetadataQuery(req.body)
+})
+
 app.post('/api/search', async (req, res) => {
     console.log('HERE')
     let items = await searchController.runMetadataQuery(req.body)

@@ -54,7 +54,14 @@
 }
 
 .TextInput {
-    height: 25px
+    height: 25px;
+    width: 150px;
+    padding: 0px;
+}
+
+.TextInput option {
+    border: 2px;
+    width: 150px;
 }
 
 .Footer {
