@@ -8,7 +8,7 @@ const Login = () => {
     const history = useHistory()
 
     const goToSearch = () => {
-        history.push('/search')
+        history.push('/retail/search')
     }
     return (
         <div className={styles.Container}>
